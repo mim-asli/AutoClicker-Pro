@@ -32,11 +32,12 @@
 #### Run with Python:
 pip install ttkbootstrap pyautogui Pillow pystray
 python clicker.py
-Build Windows .msi Installer:
+
+##### Build Windows .msi Installer:
 pip install cx_Freeze
 python setup.py bdist_msi
 
-🇮🇷 راهنمای فارسی (Persian Documentation)
+## 🇮🇷 راهنمای فارسی (Persian Documentation)
 <p align="center">
 <img src="assets/preview2.png" alt="Auto Clicker Pro Second Screenshot" width="850"/>
 </p>
@@ -53,11 +54,11 @@ python setup.py bdist_msi
 🔊 بازخورد صوتی (Audio Feedback): پخش صدای هشدار هنگام شروع و توقف.
 📌 سینی ویندوز (System Tray): مینی‌مایز شدن به کنار ساعت ویندوز.
 🔤 فونت بومی وزیرمتن (Vazirmatn): ظاهر کاملاً مدرن و فارسی.
-🚀 نحوه اجرا در پایتون
 
+#### 🚀 نحوه اجرا در پایتون
 pip install ttkbootstrap pyautogui Pillow pystray
 python clicker.py
-📦 ساخت فایل نصب‌کننده .msi
 
+##### 📦 ساخت فایل نصب‌کننده .msi
 pip install cx_Freeze
 python setup.py bdist_msi
