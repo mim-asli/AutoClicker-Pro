@@ -1,0 +1,8 @@
+# پوشه‌های موقت ساخت
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.msi
+*.exe
+.venv/
