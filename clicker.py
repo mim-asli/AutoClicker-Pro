@@ -52,11 +52,172 @@ try:
 except ImportError:
     HAS_PYSTRAY = False
 
-# پلت‌های رنگی نئونی (ویژگی تغییر تم)
-THEME_ACCENTS = {
+# ==============================================================================
+# 🌐 سیستم جامع ترجمه دو زبانه (فارسی / انگلیسی)
+# ==============================================================================
+TRANSLATIONS = {
+    "FA": {
+        "tab_auto": " ⚡ اتوکلیکر سریع ",
+        "tab_sched": " 🎯 زمان‌بندی نقاط ",
+        "tab_help": " ⚙️ تنظیمات عمومی ",
+        "sub_title": "سبک، سریع و فوق‌العاده دقیق",
+        "btn_mouse": "دکمه موس:",
+        "click_type": "نوع کلیک:",
+        "interval_ms": "فاصله زمانی (میلی‌ثانیه):",
+        "jitter": "🎲 رندوم‌سازی کلیک (ضد شناسایی ±10ms)",
+        "sound": "🔊 پخش صدای هشدار هنگام شروع/توقف",
+        "theme_mode": "حالت تم (Mode):",
+        "accent_color": "رنگ تم نئونی:",
+        "lang_select": "زبان (Language):",
+        "always_top": "📌 پنجره همیشه بالا باشد (Always On Top)",
+        "frame_config": " ⚙️ تنظیمات دکمه و سرعت ",
+        "frame_visuals": " 🎨 ظاهر، زبان و شناور‌سازی ",
+        "duration_title": " ⏱️ مدت زمان کلیک (توقف خودکار) ",
+        "unlimited": "♾️ کلیک نامحدود (توقف دستی)",
+        "auto_stop_after": "⏱️ توقف خودکار پس از: ",
+        "seconds": "ثانیه",
+        "start_time_title": " ⏰ زمان شروع کلیک ",
+        "start_instant": "⚡ شروع فوری (مستقیم با زدن کلید یا دکمه)",
+        "start_scheduled": "⏰ شروع در ساعت مشخص: ",
+        "hotkey_title": " ⌨️ انتخاب کلید میانبر ",
+        "hotkey_lbl": "کلید شروع/توقف:",
+        "pos_title": " 📍 موقعیت کلیک موس ",
+        "pos_current": "موقعیت فعلی نشانگر موس",
+        "pos_fixed": "مختصات ثابت",
+        "select_pos": "🎯 انتخاب",
+        "status_title": " 📊 وضعیت و اجرای سریع ",
+        "status_stopped": "🔴 وضعیت: متوقف شده",
+        "status_running": "🟢 وضعیت: در حال اجرا...",
+        "status_waiting": "⏳ منتظر زمان شروع...",
+        "click_count": "تعداد کلیک‌ها: ",
+        "total_clicks": "مجموع کلیک‌ها: ",
+        "status_ready": "🟢 سیستم آماده به کار است",
+        "hotkey_tip": "💡 برای شروع یا توقف کلیک دکمه {key} را بزنید.",
+        "btn_start": "▶ ({key}) شروع کلیک پیوسته",
+        "btn_stop": "⏹ ({key}) توقف کلیک",
+        "run_time": "⏱️ زمان اجرا: ",
+        # تب زمان‌بندی نقاط
+        "sched_cfg_title": " ⚙️ تنظیمات زمان و سرعت ",
+        "sched_time_lbl": "زمان شروع (ساعت:دقیقه:ثانیه):",
+        "sched_delay_lbl": "تاخیر بین کلیک‌ها (میلی‌ثانیه):",
+        "sched_pts_title": " 🎯 مختصات نقاط کلیک ",
+        "sched_add_btn": "➕ افزودن نقطه",
+        "sched_rem_btn": "➖ حذف نقطه",
+        "sched_status_ready": "وضعیت: آماده به کار",
+        "sched_start_btn": "▶ شروع زمان‌بندی",
+        "sched_stop_btn": "⏹ توقف",
+        "point_prefix": "نقطه ",
+        # کارت‌های ویژگی سمت چپ
+        "f1_t": "🌐 دو زبانه (FA / EN)",
+        "f1_d": "پشتیبانی کامل از فارسی و انگلیسی",
+        "f2_t": "☀️ سوییچ تم روشن و تاریک",
+        "f2_d": "امکان تغییر حالت بین Dark و Light",
+        "f3_t": "📌 پنجره شناور (Always On Top)",
+        "f3_d": "نگه‌داشتن پنجره روی بقیه بازی‌ها",
+        "f4_t": "🎨 تغییر تم نئونی زنده",
+        "f4_d": "امکان انتخاب رنگ سبز، آبی و بنفش",
+        "f5_t": "⚡ موتور کلیک Win32",
+        "f5_d": "سرعت مایکروثانیه‌ای (۱۰۰۰+ کلیک)",
+        "f6_t": "⏱️ توقف خودکار زمان‌بندی",
+        "f6_d": "محدود کردن کلیک به ۱۰ ثانیه",
+        # راهنما
+        "help_quick_title": "🚀 راهنمای سریع استفاده:",
+        "help_quick_1": "۱. تنظیمات کلیک (دکمه موس، سرعت و زمان) را انجام دهید.",
+        "help_quick_2": "۲. کلید میانبر دلخواه (مثلاً F6) را انتخاب کنید.",
+        "help_quick_3": "۳. کلید میانبر را در هر کجای ویندوز بزنید تا کلیک فعال یا متوقف شود.",
+        "help_features_title": "⚡ امکانات برجسته:",
+        "help_feat_1": "• موتور کلیک لایه پایین Win32 با سرعت مایکروثانیه‌ای (1000+ CPS)",
+        "help_feat_2": "• امکان شناورسازی پنجره روی بقیه بازی‌ها (Always On Top)",
+        "help_feat_3": "• تایمر توقف خودکار و زمان‌بندی شروع رأس ساعت مشخص",
+        "help_feat_4": "• مینی‌مایز به سینی ویندوز (System Tray) هنگام بستن برنامه"
+    },
+    "EN": {
+        "tab_auto": " ⚡ Fast Clicker ",
+        "tab_sched": " 🎯 Multi-Point Scheduler ",
+        "tab_help": " ⚙️ General Settings ",
+        "sub_title": "Lightweight, Ultra-Fast & Precise",
+        "btn_mouse": "Mouse Button:",
+        "click_type": "Click Type:",
+        "interval_ms": "Interval (ms):",
+        "jitter": "🎲 Randomize Interval (Anti-Detect ±10ms)",
+        "sound": "🔊 Play Alert Beep on Start/Stop",
+        "theme_mode": "Theme Mode:",
+        "accent_color": "Neon Accent:",
+        "lang_select": "Language:",
+        "always_top": "📌 Always On Top Window",
+        "frame_config": " ⚙️ Button & Speed Settings ",
+        "frame_visuals": " 🎨 Appearance & Floating ",
+        "duration_title": " ⏱️ Click Duration (Auto-Stop) ",
+        "unlimited": "♾️ Unlimited Clicks (Manual Stop)",
+        "auto_stop_after": "⏱️ Auto-stop after: ",
+        "seconds": "sec",
+        "start_time_title": " ⏰ Start Time ",
+        "start_instant": "⚡ Instant Start (Press Hotkey / Button)",
+        "start_scheduled": "⏰ Start at specific time: ",
+        "hotkey_title": " ⌨️ Global Hotkey ",
+        "hotkey_lbl": "Start/Stop Key:",
+        "pos_title": " 📍 Mouse Location ",
+        "pos_current": "Current Cursor Location",
+        "pos_fixed": "Custom Fixed Position",
+        "select_pos": "🎯 Select",
+        "status_title": " 📊 Status & Control ",
+        "status_stopped": "🔴 Status: Stopped",
+        "status_running": "🟢 Status: Clicking...",
+        "status_waiting": "⏳ Waiting for target time...",
+        "click_count": "Click Count: ",
+        "total_clicks": "Total Clicks: ",
+        "status_ready": "🟢 System Ready",
+        "hotkey_tip": "💡 Press {key} anytime to Start or Stop clicking.",
+        "btn_start": "▶ ({key}) Start Continuous Clicks",
+        "btn_stop": "⏹ ({key}) Stop Clicking",
+        "run_time": "⏱️ Runtime: ",
+        # Multi-point Scheduler Tab
+        "sched_cfg_title": " ⚙️ Timer & Speed Settings ",
+        "sched_time_lbl": "Start Time (HH:MM:SS):",
+        "sched_delay_lbl": "Delay Between Clicks (ms):",
+        "sched_pts_title": " 🎯 Multi-Point Coordinates ",
+        "sched_add_btn": "➕ Add Point",
+        "sched_rem_btn": "➖ Remove Point",
+        "sched_status_ready": "Status: Ready",
+        "sched_start_btn": "▶ Start Schedule",
+        "sched_stop_btn": "⏹ Stop",
+        "point_prefix": "Point ",
+        # Left Feature Cards
+        "f1_t": "🌐 Multilingual (FA / EN)",
+        "f1_d": "Full support for English & Persian",
+        "f2_t": "☀️ Light & Dark Themes",
+        "f2_d": "Toggle between Light and Dark mode",
+        "f3_t": "📌 Always On Top Window",
+        "f3_d": "Keep window floating above games",
+        "f4_t": "🎨 Live Neon Accents",
+        "f4_d": "Choose Green, Blue & Purple accents",
+        "f5_t": "⚡ Win32 Click Engine",
+        "f5_d": "Microsecond speed (1000+ CPS)",
+        "f6_t": "⏱️ Auto-Stop Timer",
+        "f6_d": "Limit clicking duration to N seconds",
+        # Help Tab
+        "help_quick_title": "🚀 Quick Start Guide:",
+        "help_quick_1": "1. Configure click interval (ms), mouse button, and click type.",
+        "help_quick_2": "2. Select your preferred global hotkey (e.g., F6 or F7).",
+        "help_quick_3": "3. Press your hotkey anywhere in Windows to Start or Stop clicking.",
+        "help_features_title": "⚡ Key Features:",
+        "help_feat_1": "• Low-level Win32 SendInput engine for ultra-high speed (1000+ CPS)",
+        "help_feat_2": "• Always On Top floating mode for full-screen games",
+        "help_feat_3": "• Precise Auto-Stop Timer & Scheduled Start Time",
+        "help_feat_4": "• Minimize to Windows System Tray on close"
+    }
+}
+
+THEME_ACCENTS_FA = {
     "🟢 سبز نئونی": "#00FFB2",
     "🔵 آبی سایبرپانک": "#00D2FF",
     "🟣 بنفش گیمینگ": "#C77DFF"
+}
+
+THEME_ACCENTS_EN = {
+    "🟢 Neon Green": "#00FFB2",
+    "🔵 Cyberpunk Blue": "#00D2FF",
+    "🟣 Gaming Purple": "#C77DFF"
 }
 
 BG_DARK = "#0B0F19"
@@ -146,18 +307,24 @@ class AutoClickerProApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Auto Clicker Pro")
-        self.root.geometry("1060x820")
+        self.root.geometry("1060x840")
         self.root.minsize(960, 680)
-        self.root.configure(bg=BG_DARK)
+
+        self.current_lang = "FA"
+
+        self.bg_dark = "#0B0F19"
+        self.text_white = "#FFFFFF"
+        self.text_muted = "#8B9BB4"
+        self.root.configure(bg=self.bg_dark)
 
         self.font_family = "Vazirmatn"
         self.setup_vazir_theme()
 
         self.load_app_icon()
 
-        # رنگ هایلایت پیش‌فرض
         self.current_accent = "#00FFB2"
         self.accent_labels = []
+        self.feature_card_labels = []
 
         self.auto_running = False
         self.auto_click_count = 0
@@ -174,6 +341,9 @@ class AutoClickerProApp:
 
         threading.Thread(target=self._hotkey_listener, daemon=True).start()
         self.update_status_bar_loop()
+
+    def t(self, key):
+        return TRANSLATIONS.get(self.current_lang, {}).get(key, key)
 
     def setup_vazir_theme(self):
         style = tb.Style()
@@ -217,10 +387,10 @@ class AutoClickerProApp:
 
         hk_str = self.auto_hotkey_var.get()
         menu = pystray.Menu(
-            pystray.MenuItem("نمایش Auto Clicker Pro", self.restore_from_tray, default=True),
-            pystray.MenuItem(f"توقف / شروع ({hk_str})", lambda icon, item: self.root.after(0, self.toggle_auto_clicker)),
+            pystray.MenuItem("Show Auto Clicker Pro", self.restore_from_tray, default=True),
+            pystray.MenuItem(f"Start / Stop ({hk_str})", lambda icon, item: self.root.after(0, self.toggle_auto_clicker)),
             pystray.Menu.SEPARATOR,
-            pystray.MenuItem("خروج کامل", self.quit_app)
+            pystray.MenuItem("Exit", self.quit_app)
         )
 
         self.tray_icon = pystray.Icon("AutoClickerPro", tray_img, "Auto Clicker Pro", menu)
@@ -242,10 +412,138 @@ class AutoClickerProApp:
         self.root.after(0, self.root.destroy)
         sys.exit(0)
 
-    # 👈 تغییر زنده تم نئونی (ویژگی تغییر تم)
+    # 👈 سوییچ زنده زبان و به‌روزرسانی ۱۰۰٪ تمام اجزا (از جمله تب ۲ و ۳)
+    def _on_language_changed(self, event=None):
+        lang_str = self.lang_var.get()
+        self.current_lang = "EN" if "English" in lang_str else "FA"
+
+        if self.current_lang == "EN":
+            self.combo_mode.config(values=["🌙 Dark", "☀️ Light"])
+            self.combo_accent.config(values=list(THEME_ACCENTS_EN.keys()))
+            if "تاریک" in self.mode_theme_var.get(): self.mode_theme_var.set("🌙 Dark")
+            elif "روشن" in self.mode_theme_var.get(): self.mode_theme_var.set("☀️ Light")
+            self.accent_theme_var.set("🟢 Neon Green")
+        else:
+            self.combo_mode.config(values=["🌙 تاریک (Dark)", "☀️ روشن (Light)"])
+            self.combo_accent.config(values=list(THEME_ACCENTS_FA.keys()))
+            if "Dark" in self.mode_theme_var.get(): self.mode_theme_var.set("🌙 تاریک (Dark)")
+            elif "Light" in self.mode_theme_var.get(): self.mode_theme_var.set("☀️ روشن (Light)")
+            self.accent_theme_var.set("🟢 سبز نئونی")
+
+        # به‌روزرسانی متون تب‌ها
+        self.notebook.tab(0, text=self.t("tab_auto"))
+        self.notebook.tab(1, text=self.t("tab_sched"))
+        self.notebook.tab(2, text=self.t("tab_help"))
+
+        # به‌روزرسانی کارت‌های ویژگی سمت چپ
+        for i, (t_key, d_key) in enumerate([
+            ("f1_t", "f1_d"), ("f2_t", "f2_d"), ("f3_t", "f3_d"),
+            ("f4_t", "f4_d"), ("f5_t", "f5_d"), ("f6_t", "f6_d")
+        ]):
+            if i < len(self.feature_card_labels):
+                self.feature_card_labels[i][0].config(text=self.t(t_key))
+                self.feature_card_labels[i][1].config(text=self.t(d_key))
+
+        # به‌روزرسانی تب ۱
+        self.frame_config.config(text=self.t("frame_config"))
+        self.lbl_btn_mouse.config(text=self.t("btn_mouse"))
+        self.lbl_click_type.config(text=self.t("click_type"))
+        self.lbl_interval.config(text=self.t("interval_ms"))
+        self.chk_jitter.config(text=self.t("jitter"))
+        self.chk_sound.config(text=self.t("sound"))
+
+        self.frame_duration.config(text=self.t("duration_title"))
+        self.radio_dur1.config(text=self.t("unlimited"))
+        self.radio_dur2.config(text=self.t("auto_stop_after"))
+        self.lbl_sec.config(text=self.t("seconds"))
+
+        self.frame_start_time.config(text=self.t("start_time_title"))
+        self.radio_time1.config(text=self.t("start_instant"))
+        self.radio_time2.config(text=self.t("start_scheduled"))
+
+        self.frame_pos.config(text=self.t("pos_title"))
+        self.radio_pos1.config(text=self.t("pos_current"))
+        self.radio_pos2.config(text=self.t("pos_fixed"))
+        self.btn_pick_pos.config(text=self.t("select_pos"))
+
+        self.frame_status.config(text=self.t("status_title"))
+
+        # به‌روزرسانی تب ۲ (زمان‌بندی نقاط - ترجمه کامل)
+        self.frame_sched_cfg.config(text=self.t("sched_cfg_title"))
+        self.lbl_sched_time.config(text=self.t("sched_time_lbl"))
+        self.lbl_sched_delay.config(text=self.t("sched_delay_lbl"))
+        self.frame_sched_pts.config(text=self.t("sched_pts_title"))
+        self.btn_sched_add.config(text=self.t("sched_add_btn"))
+        self.btn_sched_rem.config(text=self.t("sched_rem_btn"))
+        self.sched_status_label.config(text=self.t("sched_status_ready"))
+        self.sched_start_btn.config(text=self.t("sched_start_btn"))
+        self.sched_stop_btn.config(text=self.t("sched_stop_btn"))
+
+        # به‌روزرسانی سطرهای نقاط در تب ۲
+        prefix = self.t("point_prefix")
+        btn_txt = self.t("select_pos")
+        for idx, p in enumerate(self.points_data):
+            p["lbl_p"].config(text=f"{prefix}{idx+1}: X=")
+            p["btn_pick"].config(text=btn_txt)
+
+        # به‌روزرسانی تب ۳ (تنظیمات عمومی و راهنما)
+        self.frame_visuals.config(text=self.t("frame_visuals"))
+        self.lbl_theme_mode.config(text=self.t("theme_mode"))
+        self.lbl_accent_color.config(text=self.t("accent_color"))
+        self.lbl_lang_select.config(text=self.t("lang_select"))
+        self.chk_topmost.config(text=self.t("always_top"))
+
+        self.frame_hotkey.config(text=self.t("hotkey_title"))
+        self.lbl_hk.config(text=self.t("hotkey_lbl"))
+
+        self.lbl_help_q_title.config(text=self.t("help_quick_title"))
+        self.lbl_help_q1.config(text=self.t("help_quick_1"))
+        self.lbl_help_q2.config(text=self.t("help_quick_2"))
+        self.lbl_help_q3.config(text=self.t("help_quick_3"))
+        self.lbl_help_f_title.config(text=self.t("help_features_title"))
+        self.lbl_help_f1.config(text=self.t("help_feat_1"))
+        self.lbl_help_f2.config(text=self.t("help_feat_2"))
+        self.lbl_help_f3.config(text=self.t("help_feat_3"))
+        self.lbl_help_f4.config(text=self.t("help_feat_4"))
+
+        # به‌روزرسانی نوار وضعیت زیرین
+        self.lbl_ready.config(text=self.t("status_ready"))
+        self.lbl_total_clicks_bottom.config(text=self.t("total_clicks") + str(self.auto_click_count))
+        self.lbl_sub_brand.config(text=self.t("sub_title"))
+
+        if self.auto_running:
+            self.lbl_auto_status.config(text=self.t("status_running"))
+        else:
+            self.lbl_auto_status.config(text=self.t("status_stopped"))
+
+        self._on_hotkey_changed()
+        self._update_click_ui()
+
+    def _on_mode_theme_changed(self, event=None):
+        mode = self.mode_theme_var.get()
+        style = tb.Style()
+
+        if "روشن" in mode or "Light" in mode:
+            style.theme_use("flatly")
+            self.bg_dark = "#F1F5F9"
+            self.text_white = "#0F172A"
+            self.text_muted = "#475569"
+        else:
+            style.theme_use("darkly")
+            self.bg_dark = "#0B0F19"
+            self.text_white = "#FFFFFF"
+            self.text_muted = "#8B9BB4"
+
+        self.root.configure(bg=self.bg_dark)
+        self.setup_vazir_theme()
+        self.lbl_title_brand.config(foreground=self.text_white)
+        self.lbl_sub_brand.config(foreground=self.text_muted)
+        self.lbl_total_clicks_bottom.config(foreground=self.text_white)
+
+    # 👈 به‌روزرسانی رنگ حاشیه‌ها همگام با رنگ تم نئونی (ویژگی تغییر رنگ حاشیه)
     def _on_accent_changed(self, event=None):
         selected_theme = self.accent_theme_var.get()
-        new_color = THEME_ACCENTS.get(selected_theme, "#00FFB2")
+        new_color = THEME_ACCENTS_EN.get(selected_theme) or THEME_ACCENTS_FA.get(selected_theme, "#00FFB2")
         self.current_accent = new_color
 
         for lbl in self.accent_labels:
@@ -254,48 +552,52 @@ class AutoClickerProApp:
             except Exception:
                 pass
 
+        # تغییر رنگ حاشیه کادرها در استایل
+        style = tb.Style()
+        try:
+            style.configure("TLabelframe", bordercolor=new_color, lightcolor=new_color)
+            style.configure("TLabelframe.Label", foreground=new_color)
+            style.configure("Info.TLabelframe", bordercolor=new_color)
+            style.configure("Primary.TLabelframe", bordercolor=new_color)
+        except Exception:
+            pass
+
         if not self.auto_running:
             self.lbl_auto_count.config(foreground=new_color)
         self.lbl_ready.config(foreground=new_color)
 
-    # 👈 سوئیچ سنجاق کردن پنجره (ویژگی همیشه بالا)
     def toggle_topmost(self):
         self.root.attributes("-topmost", self.always_on_top_var.get())
 
     def build_main_layout(self):
-        main_container = tb.Frame(self.root, bootstyle="dark")
+        main_container = tb.Frame(self.root)
         main_container.pack(fill=BOTH, expand=True, padx=12, pady=12)
 
-        # 1. پنل سمت چپ
         left_panel = tb.Frame(main_container, width=280, padding=15)
         left_panel.pack(side=LEFT, fill=Y, padx=(0, 12))
 
-        tb.Label(left_panel, text="AUTO ⚡", font=(self.font_family, 26, "bold"), foreground=TEXT_WHITE).pack(anchor="w")
+        self.lbl_title_brand = tb.Label(left_panel, text="AUTO ⚡", font=(self.font_family, 26, "bold"), foreground=self.text_white)
+        self.lbl_title_brand.pack(anchor="w")
+
         lbl_brand_accent = tb.Label(left_panel, text="CLICKER PRO", font=(self.font_family, 22, "bold"), foreground=self.current_accent)
         lbl_brand_accent.pack(anchor="w")
         self.accent_labels.append(lbl_brand_accent)
 
-        tb.Label(left_panel, text="سبک، سریع و فوق‌العاده دقیق", font=(self.font_family, 9), foreground=TEXT_MUTED).pack(anchor="w", pady=(0, 20))
+        self.lbl_sub_brand = tb.Label(left_panel, text=self.t("sub_title"), font=(self.font_family, 9), foreground=self.text_muted)
+        self.lbl_sub_brand.pack(anchor="w", pady=(0, 20))
 
-        features = [
-            ("📌 پنجره شناور (Always On Top)", "نگه‌داشتن پنجره روی بقیه بازی‌ها"),
-            ("🎨 تغییر تم نئونی زنده", "امکان انتخاب رنگ سبز، آبی و بنفش"),
-            ("⚡ موتور کلیک Win32", "سرعت مایکروثانیه‌ای (۱۰۰۰+ کلیک)"),
-            ("⏱️ توقف خودکار زمان‌بندی", "محدود کردن کلیک به ۱۰ ثانیه"),
-            ("⏰ زمان‌بندی کلیک پیوسته", "امکان شروع رأس ساعت مشخص"),
-            ("⌨️ کلید میانبر سفارشی", "انتخاب دلخواه کلید شروع/توقف")
-        ]
-
-        for title, desc in features:
+        self.feature_card_labels = []
+        for i in range(1, 7):
             card = tb.Frame(left_panel, padding=10)
-            card.pack(fill=X, pady=5)
-            lbl_f_title = tb.Label(card, text=title, font=(self.font_family, 10, "bold"), foreground=self.current_accent)
-            lbl_f_title.pack(anchor="w")
-            self.accent_labels.append(lbl_f_title)
+            card.pack(fill=X, pady=4)
+            lbl_t = tb.Label(card, text=self.t(f"f{i}_t"), font=(self.font_family, 10, "bold"), foreground=self.current_accent)
+            lbl_t.pack(anchor="w")
+            self.accent_labels.append(lbl_t)
 
-            tb.Label(card, text=desc, font=(self.font_family, 8), foreground=TEXT_MUTED).pack(anchor="w")
+            lbl_d = tb.Label(card, text=self.t(f"f{i}_d"), font=(self.font_family, 8), foreground=self.text_muted)
+            lbl_d.pack(anchor="w")
+            self.feature_card_labels.append((lbl_t, lbl_d))
 
-        # 2. پنل سمت راست
         right_panel = tb.Frame(main_container)
         right_panel.pack(side=RIGHT, fill=BOTH, expand=True)
 
@@ -306,24 +608,24 @@ class AutoClickerProApp:
         self.sched_tab = tb.Frame(self.notebook, padding=12)
         self.help_tab = tb.Frame(self.notebook, padding=12)
 
-        self.notebook.add(self.auto_tab, text=" ⚙️ تنظیمات عمومی ")
-        self.notebook.add(self.sched_tab, text=" 🎯 زمان‌بندی نقاط ")
-        self.notebook.add(self.help_tab, text=" ℹ️ درباره و راهنما ")
+        self.notebook.add(self.auto_tab, text=self.t("tab_auto"))
+        self.notebook.add(self.sched_tab, text=self.t("tab_sched"))
+        self.notebook.add(self.help_tab, text=self.t("tab_help"))
 
         self.build_auto_tab()
         self.build_sched_tab()
-        self.build_help_tab()
+        self.build_general_settings_tab()
 
         status_bar = tb.Frame(right_panel, padding=(12, 6))
         status_bar.pack(fill=X, side=BOTTOM, pady=(8, 0))
 
-        self.lbl_ready = tb.Label(status_bar, text="🟢 سیستم آماده به کار است", font=(self.font_family, 9, "bold"), foreground=self.current_accent)
+        self.lbl_ready = tb.Label(status_bar, text=self.t("status_ready"), font=(self.font_family, 9, "bold"), foreground=self.current_accent)
         self.lbl_ready.pack(side=LEFT)
 
-        self.lbl_total_clicks_bottom = tb.Label(status_bar, text="مجموع کلیک‌ها: 0", font=(self.font_family, 9, "bold"), foreground=TEXT_WHITE)
+        self.lbl_total_clicks_bottom = tb.Label(status_bar, text=self.t("total_clicks") + "0", font=(self.font_family, 9, "bold"), foreground=self.text_white)
         self.lbl_total_clicks_bottom.pack(side=RIGHT, padx=15)
 
-        self.lbl_timer_bottom = tb.Label(status_bar, text="⏱️ زمان اجرا: 00:00:00", font=(self.font_family, 9), foreground=TEXT_MUTED)
+        self.lbl_timer_bottom = tb.Label(status_bar, text=self.t("run_time") + "00:00:00", font=(self.font_family, 9), foreground=self.text_muted)
         self.lbl_timer_bottom.pack(side=RIGHT)
 
     def build_auto_tab(self):
@@ -337,95 +639,76 @@ class AutoClickerProApp:
         col_right.pack(side=RIGHT, fill=BOTH, expand=True, padx=(6, 0))
 
         # --- ستون چپ: 1. تنظیمات اصلی کلیک ---
-        frame_config = tb.Labelframe(col_left, text=" ⚙️ تنظیمات دکمه و سرعت ", padding=12, bootstyle=PRIMARY)
-        frame_config.pack(fill=X, pady=(0, 10))
+        self.frame_config = tb.Labelframe(col_left, text=self.t("frame_config"), padding=12, bootstyle=PRIMARY)
+        self.frame_config.pack(fill=X, pady=(0, 10))
 
-        r1 = tb.Frame(frame_config)
+        r1 = tb.Frame(self.frame_config)
         r1.pack(fill=X, pady=4)
-        tb.Label(r1, text="دکمه موس:").pack(side=LEFT, padx=(0, 5))
+        self.lbl_btn_mouse = tb.Label(r1, text=self.t("btn_mouse"))
+        self.lbl_btn_mouse.pack(side=LEFT, padx=(0, 5))
         self.auto_btn_var = tb.StringVar(value="left")
         tb.Combobox(r1, values=["left", "right", "middle"], textvariable=self.auto_btn_var, state="readonly", width=8).pack(side=LEFT, padx=(0, 15))
 
-        tb.Label(r1, text="نوع کلیک:").pack(side=LEFT, padx=(0, 5))
+        self.lbl_click_type = tb.Label(r1, text=self.t("click_type"))
+        self.lbl_click_type.pack(side=LEFT, padx=(0, 5))
         self.auto_type_var = tb.StringVar(value="Single")
         tb.Combobox(r1, values=["Single", "Double"], textvariable=self.auto_type_var, state="readonly", width=8).pack(side=LEFT)
 
-        r2 = tb.Frame(frame_config)
+        r2 = tb.Frame(self.frame_config)
         r2.pack(fill=X, pady=6)
-        tb.Label(r2, text="فاصله زمانی (میلی‌ثانیه):").pack(side=LEFT, padx=(0, 5))
+        self.lbl_interval = tb.Label(r2, text=self.t("interval_ms"))
+        self.lbl_interval.pack(side=LEFT, padx=(0, 5))
         self.auto_interval_var = tb.StringVar(value="100")
         tb.Entry(r2, textvariable=self.auto_interval_var, width=7, justify="center", font=(self.font_family, 10, "bold")).pack(side=LEFT)
-        tb.Label(r2, text=" (0.1ms = سرعت مایکروثانیه‌ای)", font=(self.font_family, 8), foreground=TEXT_MUTED).pack(side=LEFT, padx=5)
+        tb.Label(r2, text=" (0.1ms)", font=(self.font_family, 8), foreground=self.text_muted).pack(side=LEFT, padx=5)
 
         self.auto_jitter_var = tb.BooleanVar(value=False)
-        tb.Checkbutton(
-            frame_config, 
-            text="🎲 رندوم‌سازی کلیک (ضد شناسایی ±10ms)", 
+        self.chk_jitter = tb.Checkbutton(
+            self.frame_config, 
+            text=self.t("jitter"), 
             variable=self.auto_jitter_var, 
             bootstyle="success-square-toggle"
-        ).pack(anchor="w", pady=(6, 2))
+        )
+        self.chk_jitter.pack(anchor="w", pady=(6, 2))
 
         self.auto_sound_var = tb.BooleanVar(value=True)
-        tb.Checkbutton(
-            frame_config, 
-            text="🔊 پخش صدای هشدار هنگام شروع/توقف", 
+        self.chk_sound = tb.Checkbutton(
+            self.frame_config, 
+            text=self.t("sound"), 
             variable=self.auto_sound_var, 
             bootstyle="success-square-toggle"
-        ).pack(anchor="w", pady=2)
-
-        # 👈 2. کادر شخصی‌سازی ظاهری (تم نئونی + همیشه بالا)
-        frame_visuals = tb.Labelframe(col_left, text=" 🎨 ظاهر و شناور‌سازی ", padding=12, bootstyle=INFO)
-        frame_visuals.pack(fill=X, pady=(0, 10))
-
-        rv1 = tb.Frame(frame_visuals)
-        rv1.pack(fill=X, pady=2)
-        tb.Label(rv1, text="رنگ تم نئونی:").pack(side=LEFT, padx=(0, 8))
-        self.accent_theme_var = tb.StringVar(value="🟢 سبز نئونی")
-        self.combo_accent = tb.Combobox(
-            rv1, 
-            values=list(THEME_ACCENTS.keys()), 
-            textvariable=self.accent_theme_var, 
-            state="readonly", 
-            width=14
         )
-        self.combo_accent.pack(side=LEFT)
-        self.combo_accent.bind("<<ComboboxSelected>>", self._on_accent_changed)
+        self.chk_sound.pack(anchor="w", pady=2)
 
-        rv2 = tb.Frame(frame_visuals)
-        rv2.pack(fill=X, pady=6)
-        self.always_on_top_var = tb.BooleanVar(value=False)
-        tb.Checkbutton(
-            rv2, 
-            text="📌 پنجره همیشه بالا باشد (Always On Top)", 
-            variable=self.always_on_top_var, 
-            command=self.toggle_topmost,
-            bootstyle="info-square-toggle"
-        ).pack(anchor="w")
-
-        # --- ستون چپ: 3. مدت زمان کلیک ---
-        frame_duration = tb.Labelframe(col_left, text=" ⏱️ مدت زمان کلیک (توقف خودکار) ", padding=12, bootstyle=PRIMARY)
-        frame_duration.pack(fill=X, pady=(0, 10))
+        # --- ستون چپ: 2. مدت زمان کلیک ---
+        self.frame_duration = tb.Labelframe(col_left, text=self.t("duration_title"), padding=12, bootstyle=PRIMARY)
+        self.frame_duration.pack(fill=X, pady=(0, 10))
 
         self.auto_duration_mode = tb.StringVar(value="unlimited")
-        tb.Radiobutton(frame_duration, text="♾️ کلیک نامحدود (توقف دستی)", variable=self.auto_duration_mode, value="unlimited", bootstyle=PRIMARY).pack(anchor="w", pady=2)
+        self.radio_dur1 = tb.Radiobutton(self.frame_duration, text=self.t("unlimited"), variable=self.auto_duration_mode, value="unlimited", bootstyle=PRIMARY)
+        self.radio_dur1.pack(anchor="w", pady=2)
 
-        rd2 = tb.Frame(frame_duration)
+        rd2 = tb.Frame(self.frame_duration)
         rd2.pack(fill=X, pady=2)
-        tb.Radiobutton(rd2, text="⏱️ توقف خودکار پس از: ", variable=self.auto_duration_mode, value="limited", bootstyle=PRIMARY).pack(side=LEFT)
+        self.radio_dur2 = tb.Radiobutton(rd2, text=self.t("auto_stop_after"), variable=self.auto_duration_mode, value="limited", bootstyle=PRIMARY)
+        self.radio_dur2.pack(side=LEFT)
         self.auto_duration_val = tb.StringVar(value="10")
         tb.Entry(rd2, textvariable=self.auto_duration_val, width=5, justify="center", font=(self.font_family, 10, "bold")).pack(side=LEFT, padx=5)
-        tb.Label(rd2, text="ثانیه").pack(side=LEFT)
+        self.lbl_sec = tb.Label(rd2, text=self.t("seconds"))
+        self.lbl_sec.pack(side=LEFT)
 
-        # --- ستون راست: 1. زمان شروع کلیک ---
-        frame_start_time = tb.Labelframe(col_right, text=" ⏰ زمان شروع کلیک ", padding=12, bootstyle=PRIMARY)
-        frame_start_time.pack(fill=X, pady=(0, 10))
+        # --- ستون چپ: 3. زمان شروع کلیک ---
+        self.frame_start_time = tb.Labelframe(col_left, text=self.t("start_time_title"), padding=12, bootstyle=PRIMARY)
+        self.frame_start_time.pack(fill=X, pady=(0, 10))
 
         self.auto_start_mode = tb.StringVar(value="instant")
-        tb.Radiobutton(frame_start_time, text="⚡ شروع فوری (مستقیم با زدن کلید یا دکمه)", variable=self.auto_start_mode, value="instant", bootstyle=PRIMARY).pack(anchor="w", pady=2)
+        self.radio_time1 = tb.Radiobutton(self.frame_start_time, text=self.t("start_instant"), variable=self.auto_start_mode, value="instant", bootstyle=PRIMARY)
+        self.radio_time1.pack(anchor="w", pady=2)
 
-        rt2 = tb.Frame(frame_start_time)
+        rt2 = tb.Frame(self.frame_start_time)
         rt2.pack(fill=X, pady=2)
-        tb.Radiobutton(rt2, text="⏰ شروع در ساعت مشخص: ", variable=self.auto_start_mode, value="scheduled", bootstyle=PRIMARY).pack(side=LEFT)
+        self.radio_time2 = tb.Radiobutton(rt2, text=self.t("start_scheduled"), variable=self.auto_start_mode, value="scheduled", bootstyle=PRIMARY)
+        self.radio_time2.pack(side=LEFT)
 
         now_plus_1m = datetime.datetime.now() + datetime.timedelta(minutes=1)
         self.auto_hour_var = tb.StringVar(value=now_plus_1m.strftime("%H"))
@@ -438,30 +721,20 @@ class AutoClickerProApp:
         tb.Label(rt2, text=":").pack(side=LEFT, padx=1)
         tb.Entry(rt2, textvariable=self.auto_sec_var, width=3, justify="center", font=(self.font_family, 9, "bold")).pack(side=LEFT)
 
-        # --- ستون راست: 2. کلید میانبر ---
-        frame_hotkey = tb.Labelframe(col_right, text=" ⌨️ انتخاب کلید میانبر ", padding=12, bootstyle=INFO)
-        frame_hotkey.pack(fill=X, pady=(0, 10))
-
-        rhk = tb.Frame(frame_hotkey)
-        rhk.pack(fill=X)
-        tb.Label(rhk, text="کلید شروع/توقف:").pack(side=LEFT, padx=(0, 10))
-        self.auto_hotkey_var = tb.StringVar(value="F6")
-        self.combo_hotkey = tb.Combobox(rhk, values=list(HOTKEY_MAP.keys()), textvariable=self.auto_hotkey_var, state="readonly", width=8)
-        self.combo_hotkey.pack(side=LEFT)
-        self.combo_hotkey.bind("<<ComboboxSelected>>", self._on_hotkey_changed)
-
-        # --- ستون راست: 3. موقعیت کلیک ---
-        frame_pos = tb.Labelframe(col_right, text=" 📍 موقعیت کلیک موس ", padding=12, bootstyle=PRIMARY)
-        frame_pos.pack(fill=X, pady=(0, 10))
+        # --- ستون چپ: 4. موقعیت کلیک ---
+        self.frame_pos = tb.Labelframe(col_left, text=self.t("pos_title"), padding=12, bootstyle=PRIMARY)
+        self.frame_pos.pack(fill=X, pady=(0, 10))
 
         self.auto_pos_mode = tb.StringVar(value="current")
-        tb.Radiobutton(frame_pos, text="موقعیت فعلی نشانگر موس", variable=self.auto_pos_mode, value="current", bootstyle=PRIMARY).pack(anchor="w", pady=2)
+        self.radio_pos1 = tb.Radiobutton(self.frame_pos, text=self.t("pos_current"), variable=self.auto_pos_mode, value="current", bootstyle=PRIMARY)
+        self.radio_pos1.pack(anchor="w", pady=2)
 
-        rc = tb.Frame(frame_pos)
+        rc = tb.Frame(self.frame_pos)
         rc.pack(fill=X, pady=2)
-        tb.Radiobutton(rc, text="مختصات ثابت", variable=self.auto_pos_mode, value="custom", bootstyle=PRIMARY).pack(side=LEFT)
+        self.radio_pos2 = tb.Radiobutton(rc, text=self.t("pos_fixed"), variable=self.auto_pos_mode, value="custom", bootstyle=PRIMARY)
+        self.radio_pos2.pack(side=LEFT)
 
-        tb.Label(rc, text="X:").pack(side=LEFT, padx=(10, 2))
+        tb.Label(rc, text="X:").pack(side=LEFT, padx=(6, 2))
         self.auto_x_var = tb.StringVar(value="0")
         tb.Entry(rc, textvariable=self.auto_x_var, width=5, justify="center").pack(side=LEFT, padx=2)
 
@@ -469,41 +742,158 @@ class AutoClickerProApp:
         self.auto_y_var = tb.StringVar(value="0")
         tb.Entry(rc, textvariable=self.auto_y_var, width=5, justify="center").pack(side=LEFT, padx=2)
 
-        tb.Button(rc, text="🎯 انتخاب", bootstyle=(INFO, OUTLINE), command=self.pick_auto_custom_pos).pack(side=LEFT, padx=10)
+        self.btn_pick_pos = tb.Button(rc, text=self.t("select_pos"), bootstyle=(INFO, OUTLINE), command=self.pick_auto_custom_pos, width=10)
+        self.btn_pick_pos.pack(side=LEFT, padx=6)
 
-        # --- ستون راست: 4. کارت بزرگ اجرا و وضعیت نئونی ---
-        frame_status = tb.Labelframe(col_right, text=" 📊 وضعیت و اجرای سریع ", padding=15, bootstyle=SUCCESS)
-        frame_status.pack(fill=BOTH, expand=True)
+        # --- ستون راست: کارت بزرگ، خلوت و برجسته اجرا ---
+        self.frame_status = tb.Labelframe(col_right, text=self.t("status_title"), padding=20, bootstyle=SUCCESS)
+        self.frame_status.pack(fill=BOTH, expand=True)
 
-        self.lbl_auto_status = tb.Label(frame_status, text="🔴 وضعیت: متوقف شده", font=(self.font_family, 14, "bold"), foreground="#FF5555")
-        self.lbl_auto_status.pack(pady=5)
+        self.lbl_auto_status = tb.Label(self.frame_status, text=self.t("status_stopped"), font=(self.font_family, 15, "bold"), foreground="#FF5555")
+        self.lbl_auto_status.pack(pady=10)
 
-        self.lbl_auto_count = tb.Label(frame_status, text="تعداد کلیک‌ها: 0", font=(self.font_family, 12, "bold"), foreground=self.current_accent)
-        self.lbl_auto_count.pack(pady=5)
+        self.lbl_auto_count = tb.Label(self.frame_status, text=self.t("click_count") + "0", font=(self.font_family, 13, "bold"), foreground=self.current_accent)
+        self.lbl_auto_count.pack(pady=10)
 
         self.lbl_hotkey_tip = tb.Label(
-            frame_status, 
-            text="💡 برای شروع یا توقف کلیک دکمه F6 را بزنید.", 
-            font=(self.font_family, 9), 
+            self.frame_status, 
+            text=self.t("hotkey_tip").format(key="F6"), 
+            font=(self.font_family, 10), 
             foreground="#FFB86C"
         )
-        self.lbl_hotkey_tip.pack(pady=5)
+        self.lbl_hotkey_tip.pack(pady=10)
 
         self.btn_auto_toggle = tb.Button(
-            frame_status, 
-            text="▶ (F6) شروع کلیک پیوسته", 
+            self.frame_status, 
+            text=self.t("btn_start").format(key="F6"), 
             bootstyle=SUCCESS, 
             command=self.toggle_auto_clicker
         )
-        self.btn_auto_toggle.pack(pady=10, fill=X, ipady=12)
+        self.btn_auto_toggle.pack(pady=20, fill=X, ipady=15)
+
+    # 👈 تب سوم: «تنظیمات عمومی» (انتقال کادرهای ظاهر و کلید میانبر به این تب)
+    def build_general_settings_tab(self):
+        grid_frame = tb.Frame(self.help_tab)
+        grid_frame.pack(fill=BOTH, expand=True)
+
+        col1 = tb.Frame(grid_frame)
+        col1.pack(side=LEFT, fill=BOTH, expand=True, padx=(0, 6))
+
+        col2 = tb.Frame(grid_frame)
+        col2.pack(side=RIGHT, fill=BOTH, expand=True, padx=(6, 0))
+
+        # کادر ۱: تنظیمات ظاهر، زبان و شناورسازی
+        self.frame_visuals = tb.Labelframe(col1, text=self.t("frame_visuals"), padding=12, bootstyle=INFO)
+        self.frame_visuals.pack(fill=X, pady=(0, 10))
+
+        rv_lang = tb.Frame(self.frame_visuals)
+        rv_lang.pack(fill=X, pady=3)
+        self.lbl_lang_select = tb.Label(rv_lang, text=self.t("lang_select"))
+        self.lbl_lang_select.pack(side=LEFT, padx=(0, 8))
+        self.lang_var = tb.StringVar(value="🇮🇷 فارسی (Persian)")
+        self.combo_lang = tb.Combobox(
+            rv_lang,
+            values=["🇮🇷 فارسی (Persian)", "🇬🇧 English"],
+            textvariable=self.lang_var,
+            state="readonly",
+            width=16
+        )
+        self.combo_lang.pack(side=LEFT)
+        self.combo_lang.bind("<<ComboboxSelected>>", self._on_language_changed)
+
+        rv0 = tb.Frame(self.frame_visuals)
+        rv0.pack(fill=X, pady=5)
+        self.lbl_theme_mode = tb.Label(rv0, text=self.t("theme_mode"))
+        self.lbl_theme_mode.pack(side=LEFT, padx=(0, 8))
+        self.mode_theme_var = tb.StringVar(value="🌙 تاریک (Dark)")
+        self.combo_mode = tb.Combobox(
+            rv0, 
+            values=["🌙 تاریک (Dark)", "☀️ روشن (Light)"], 
+            textvariable=self.mode_theme_var, 
+            state="readonly", 
+            width=14
+        )
+        self.combo_mode.pack(side=LEFT)
+        self.combo_mode.bind("<<ComboboxSelected>>", self._on_mode_theme_changed)
+
+        rv1 = tb.Frame(self.frame_visuals)
+        rv1.pack(fill=X, pady=5)
+        self.lbl_accent_color = tb.Label(rv1, text=self.t("accent_color"))
+        self.lbl_accent_color.pack(side=LEFT, padx=(0, 8))
+        self.accent_theme_var = tb.StringVar(value="🟢 سبز نئونی")
+        self.combo_accent = tb.Combobox(
+            rv1, 
+            values=list(THEME_ACCENTS_FA.keys()), 
+            textvariable=self.accent_theme_var, 
+            state="readonly", 
+            width=14
+        )
+        self.combo_accent.pack(side=LEFT)
+        self.combo_accent.bind("<<ComboboxSelected>>", self._on_accent_changed)
+
+        rv2 = tb.Frame(self.frame_visuals)
+        rv2.pack(fill=X, pady=5)
+        self.always_on_top_var = tb.BooleanVar(value=False)
+        self.chk_topmost = tb.Checkbutton(
+            rv2, 
+            text=self.t("always_top"), 
+            variable=self.always_on_top_var, 
+            command=self.toggle_topmost,
+            bootstyle="info-square-toggle"
+        )
+        self.chk_topmost.pack(anchor="w")
+
+        # کادر ۲: انتخاب کلید میانبر
+        self.frame_hotkey = tb.Labelframe(col1, text=self.t("hotkey_title"), padding=12, bootstyle=INFO)
+        self.frame_hotkey.pack(fill=X, pady=(0, 10))
+
+        rhk = tb.Frame(self.frame_hotkey)
+        rhk.pack(fill=X)
+        self.lbl_hk = tb.Label(rhk, text=self.t("hotkey_lbl"))
+        self.lbl_hk.pack(side=LEFT, padx=(0, 10))
+        self.auto_hotkey_var = tb.StringVar(value="F6")
+        self.combo_hotkey = tb.Combobox(rhk, values=list(HOTKEY_MAP.keys()), textvariable=self.auto_hotkey_var, state="readonly", width=8)
+        self.combo_hotkey.pack(side=LEFT)
+        self.combo_hotkey.bind("<<ComboboxSelected>>", self._on_hotkey_changed)
+
+        # کادر ۳: راهنمای سریع و امکانات
+        card_q = tb.Labelframe(col2, text=" 🚀 Guide & Features ", padding=12, bootstyle=PRIMARY)
+        card_q.pack(fill=BOTH, expand=True)
+
+        self.lbl_help_q_title = tb.Label(card_q, text=self.t("help_quick_title"), font=(self.font_family, 11, "bold"))
+        self.lbl_help_q_title.pack(anchor="w", pady=(0, 5))
+
+        self.lbl_help_q1 = tb.Label(card_q, text=self.t("help_quick_1"), font=(self.font_family, 10))
+        self.lbl_help_q1.pack(anchor="w", pady=2)
+
+        self.lbl_help_q2 = tb.Label(card_q, text=self.t("help_quick_2"), font=(self.font_family, 10))
+        self.lbl_help_q2.pack(anchor="w", pady=2)
+
+        self.lbl_help_q3 = tb.Label(card_q, text=self.t("help_quick_3"), font=(self.font_family, 10))
+        self.lbl_help_q3.pack(anchor="w", pady=(2, 10))
+
+        self.lbl_help_f_title = tb.Label(card_q, text=self.t("help_features_title"), font=(self.font_family, 11, "bold"))
+        self.lbl_help_f_title.pack(anchor="w", pady=(5, 5))
+
+        self.lbl_help_f1 = tb.Label(card_q, text=self.t("help_feat_1"), font=(self.font_family, 10))
+        self.lbl_help_f1.pack(anchor="w", pady=2)
+
+        self.lbl_help_f2 = tb.Label(card_q, text=self.t("help_feat_2"), font=(self.font_family, 10))
+        self.lbl_help_f2.pack(anchor="w", pady=2)
+
+        self.lbl_help_f3 = tb.Label(card_q, text=self.t("help_feat_3"), font=(self.font_family, 10))
+        self.lbl_help_f3.pack(anchor="w", pady=2)
+
+        self.lbl_help_f4 = tb.Label(card_q, text=self.t("help_feat_4"), font=(self.font_family, 10))
+        self.lbl_help_f4.pack(anchor="w", pady=2)
 
     def _on_hotkey_changed(self, event=None):
         key = self.auto_hotkey_var.get()
         if self.auto_running:
-            self.btn_auto_toggle.config(text=f"⏹ ({key}) توقف کلیک")
+            self.btn_auto_toggle.config(text=self.t("btn_stop").format(key=key))
         else:
-            self.btn_auto_toggle.config(text=f"▶ ({key}) شروع کلیک پیوسته")
-        self.lbl_hotkey_tip.config(text=f"💡 برای شروع یا توقف کلیک دکمه {key} را بزنید.")
+            self.btn_auto_toggle.config(text=self.t("btn_start").format(key=key))
+        self.lbl_hotkey_tip.config(text=self.t("hotkey_tip").format(key=key))
 
     def _play_sound_feedback(self, is_start):
         if not self.auto_sound_var.get():
@@ -535,13 +925,13 @@ class AutoClickerProApp:
             if self.auto_duration_mode.get() == "limited":
                 float(self.auto_duration_val.get())
         except ValueError:
-            messagebox.showerror("خطا", "لطفاً مقادیر ورودی را به عدد وارد کنید.")
+            messagebox.showerror("Error", "Please enter valid numbers.")
             return
 
         key = self.auto_hotkey_var.get()
         self.auto_running = True
-        self.btn_auto_toggle.config(text=f"⏹ ({key}) توقف کلیک", bootstyle=DANGER)
-        self.lbl_auto_status.config(text="🟢 وضعیت: در حال اجرا...", foreground=self.current_accent)
+        self.btn_auto_toggle.config(text=self.t("btn_stop").format(key=key), bootstyle=DANGER)
+        self.lbl_auto_status.config(text=self.t("status_running"), foreground=self.current_accent)
 
         self._play_sound_feedback(True)
         threading.Thread(target=self._auto_click_loop, daemon=True).start()
@@ -549,8 +939,8 @@ class AutoClickerProApp:
     def stop_auto_clicker(self):
         key = self.auto_hotkey_var.get()
         self.auto_running = False
-        self.btn_auto_toggle.config(text=f"▶ ({key}) شروع کلیک پیوسته", bootstyle=SUCCESS)
-        self.lbl_auto_status.config(text="🔴 وضعیت: متوقف شده", foreground="#FF5555")
+        self.btn_auto_toggle.config(text=self.t("btn_start").format(key=key), bootstyle=SUCCESS)
+        self.lbl_auto_status.config(text=self.t("status_stopped"), foreground="#FF5555")
 
         self._play_sound_feedback(False)
 
@@ -573,14 +963,14 @@ class AutoClickerProApp:
                     break
                 time_left = str(target_time - now).split(".")[0]
                 self.root.after(0, lambda t=time_left: self.lbl_auto_status.config(
-                    text=f"⏳ منتظر زمان شروع... ({t})", foreground="#FFB86C"
+                    text=self.t("status_waiting") + f" ({t})", foreground="#FFB86C"
                 ))
                 time.sleep(0.2)
 
         if not self.auto_running:
             return
 
-        self.root.after(0, lambda: self.lbl_auto_status.config(text="🟢 وضعیت: در حال کلیک...", foreground=self.current_accent))
+        self.root.after(0, lambda: self.lbl_auto_status.config(text=self.t("status_running"), foreground=self.current_accent))
         btn = self.auto_btn_var.get()
         click_type = self.auto_type_var.get()
 
@@ -619,8 +1009,8 @@ class AutoClickerProApp:
         self.root.after(0, self._update_click_ui)
 
     def _update_click_ui(self):
-        self.lbl_auto_count.config(text=f"تعداد کلیک‌ها: {self.auto_click_count}")
-        self.lbl_total_clicks_bottom.config(text=f"مجموع کلیک‌ها: {self.auto_click_count}")
+        self.lbl_auto_count.config(text=self.t("click_count") + str(self.auto_click_count))
+        self.lbl_total_clicks_bottom.config(text=self.t("total_clicks") + str(self.auto_click_count))
 
     def pick_auto_custom_pos(self):
         overlay = tb.Toplevel(self.root)
@@ -628,7 +1018,8 @@ class AutoClickerProApp:
         overlay.attributes("-alpha", 0.4)
         overlay.config(cursor="crosshair")
 
-        lbl = tb.Label(overlay, text="موس را روی نقطه مورد نظر برده و کلیک کنید\n(انصراف = Esc)", font=(self.font_family, 22, "bold"), bootstyle=INVERSE)
+        lbl_text = "Select Position & Click\n(Esc = Cancel)" if self.current_lang == "EN" else "موس را روی نقطه ببر و کلیک کن\n(Esc = انصراف)"
+        lbl = tb.Label(overlay, text=lbl_text, font=(self.font_family, 22, "bold"), bootstyle=INVERSE)
         lbl.pack(expand=True)
 
         def on_click(e):
@@ -656,19 +1047,17 @@ class AutoClickerProApp:
     def update_status_bar_loop(self):
         elapsed = int(time.time() - self.start_app_time)
         formatted_time = str(datetime.timedelta(seconds=elapsed))
-        self.lbl_timer_bottom.config(text=f"⏱️ زمان اجرا: {formatted_time}")
+        self.lbl_timer_bottom.config(text=self.t("run_time") + formatted_time)
         self.root.after(1000, self.update_status_bar_loop)
 
-    # ==========================================
-    # تب زمان‌بندی نقاط
-    # ==========================================
     def build_sched_tab(self):
-        settings_frame = tb.Labelframe(self.sched_tab, text=" ⚙️ تنظیمات زمان و سرعت ", padding=15, bootstyle=INFO)
-        settings_frame.pack(fill=X, pady=(0, 15))
+        self.frame_sched_cfg = tb.Labelframe(self.sched_tab, text=self.t("sched_cfg_title"), padding=15, bootstyle=INFO)
+        self.frame_sched_cfg.pack(fill=X, pady=(0, 15))
 
-        time_row = tb.Frame(settings_frame)
+        time_row = tb.Frame(self.frame_sched_cfg)
         time_row.pack(fill=X, pady=5)
-        tb.Label(time_row, text="زمان شروع (ساعت:دقیقه:ثانیه):", font=(self.font_family, 10)).pack(side=LEFT, padx=(0, 10))
+        self.lbl_sched_time = tb.Label(time_row, text=self.t("sched_time_lbl"), font=(self.font_family, 10))
+        self.lbl_sched_time.pack(side=LEFT, padx=(0, 10))
 
         now_plus_1m = datetime.datetime.now() + datetime.timedelta(minutes=1)
         self.hour_var = tb.StringVar(value=now_plus_1m.strftime("%H"))
@@ -681,21 +1070,24 @@ class AutoClickerProApp:
         tb.Label(time_row, text=":", font=(self.font_family, 11, "bold")).pack(side=LEFT, padx=2)
         tb.Entry(time_row, textvariable=self.sec_var, width=4, justify="center", font=(self.font_family, 10, "bold")).pack(side=LEFT)
 
-        delay_row = tb.Frame(settings_frame)
+        delay_row = tb.Frame(self.frame_sched_cfg)
         delay_row.pack(fill=X, pady=10)
-        tb.Label(delay_row, text="تاخیر بین کلیک‌ها (میلی‌ثانیه):", font=(self.font_family, 10)).pack(side=LEFT, padx=(0, 10))
+        self.lbl_sched_delay = tb.Label(delay_row, text=self.t("sched_delay_lbl"), font=(self.font_family, 10))
+        self.lbl_sched_delay.pack(side=LEFT, padx=(0, 10))
         self.delay_var = tb.StringVar(value="100")
         tb.Entry(delay_row, textvariable=self.delay_var, width=8, justify="center", font=(self.font_family, 10)).pack(side=LEFT)
 
-        points_container = tb.Labelframe(self.sched_tab, text=" 🎯 مختصات نقاط کلیک ", padding=10, bootstyle=PRIMARY)
-        points_container.pack(fill=BOTH, expand=True)
+        self.frame_sched_pts = tb.Labelframe(self.sched_tab, text=self.t("sched_pts_title"), padding=10, bootstyle=PRIMARY)
+        self.frame_sched_pts.pack(fill=BOTH, expand=True)
 
-        ctrl_frame = tb.Frame(points_container)
+        ctrl_frame = tb.Frame(self.frame_sched_pts)
         ctrl_frame.pack(fill=X, pady=(0, 10))
-        tb.Button(ctrl_frame, text="➕ افزودن نقطه", bootstyle=SUCCESS, command=self.add_point_row).pack(side=LEFT, padx=5)
-        tb.Button(ctrl_frame, text="➖ حذف نقطه", bootstyle=DANGER, command=self.remove_point_row).pack(side=LEFT, padx=5)
+        self.btn_sched_add = tb.Button(ctrl_frame, text=self.t("sched_add_btn"), bootstyle=SUCCESS, command=self.add_point_row)
+        self.btn_sched_add.pack(side=LEFT, padx=5)
+        self.btn_sched_rem = tb.Button(ctrl_frame, text=self.t("sched_rem_btn"), bootstyle=DANGER, command=self.remove_point_row)
+        self.btn_sched_rem.pack(side=LEFT, padx=5)
 
-        canvas_frame = tb.Frame(points_container)
+        canvas_frame = tb.Frame(self.frame_sched_pts)
         canvas_frame.pack(fill=BOTH, expand=True)
 
         self.canvas = tb.Canvas(canvas_frame, borderwidth=0, highlightthickness=0)
@@ -710,14 +1102,14 @@ class AutoClickerProApp:
         self.canvas.pack(side=LEFT, fill=BOTH, expand=True)
         self.scrollbar.pack(side=RIGHT, fill=Y)
 
-        self.sched_status_label = tb.Label(self.sched_tab, text="وضعیت: آماده به کار", font=(self.font_family, 12, "bold"), bootstyle=PRIMARY)
+        self.sched_status_label = tb.Label(self.sched_tab, text=self.t("sched_status_ready"), font=(self.font_family, 12, "bold"), bootstyle=PRIMARY)
         self.sched_status_label.pack(pady=10)
 
         btn_frame = tb.Frame(self.sched_tab)
         btn_frame.pack(fill=X, pady=5)
-        self.sched_start_btn = tb.Button(btn_frame, text="▶ شروع زمان‌بندی", bootstyle=(SUCCESS, OUTLINE), command=self.start_sched_timer)
+        self.sched_start_btn = tb.Button(btn_frame, text=self.t("sched_start_btn"), bootstyle=(SUCCESS, OUTLINE), command=self.start_sched_timer)
         self.sched_start_btn.pack(side=LEFT, expand=True, padx=5, fill=X)
-        self.sched_stop_btn = tb.Button(btn_frame, text="⏹ توقف", bootstyle=(DANGER, OUTLINE), command=self.stop_sched_timer, state=DISABLED)
+        self.sched_stop_btn = tb.Button(btn_frame, text=self.t("sched_stop_btn"), bootstyle=(DANGER, OUTLINE), command=self.stop_sched_timer, state=DISABLED)
         self.sched_stop_btn.pack(side=LEFT, expand=True, padx=5, fill=X)
 
     def add_point_row(self):
@@ -725,7 +1117,10 @@ class AutoClickerProApp:
         row_frame = tb.Frame(self.scrollable_frame)
         row_frame.pack(fill=X, pady=4, padx=5)
 
-        tb.Label(row_frame, text=f"نقطه {idx+1}: X=", font=(self.font_family, 9)).pack(side=LEFT)
+        prefix = self.t("point_prefix")
+        lbl_p = tb.Label(row_frame, text=f"{prefix}{idx+1}: X=", font=(self.font_family, 9))
+        lbl_p.pack(side=LEFT)
+
         x_var = tb.StringVar(value="0")
         tb.Entry(row_frame, textvariable=x_var, width=6, justify="center", font=(self.font_family, 9)).pack(side=LEFT, padx=5)
 
@@ -733,8 +1128,10 @@ class AutoClickerProApp:
         y_var = tb.StringVar(value="0")
         tb.Entry(row_frame, textvariable=y_var, width=6, justify="center", font=(self.font_family, 9)).pack(side=LEFT, padx=5)
 
-        tb.Button(row_frame, text="🎯 انتخاب", bootstyle=(INFO, OUTLINE), command=lambda i=idx: self.start_mouse_selection(i)).pack(side=RIGHT, padx=10)
-        self.points_data.append({"frame": row_frame, "x_var": x_var, "y_var": y_var})
+        btn_pick = tb.Button(row_frame, text=self.t("select_pos"), bootstyle=(INFO, OUTLINE), command=lambda i=idx: self.start_mouse_selection(i))
+        btn_pick.pack(side=RIGHT, padx=10)
+
+        self.points_data.append({"frame": row_frame, "lbl_p": lbl_p, "x_var": x_var, "y_var": y_var, "btn_pick": btn_pick})
 
     def remove_point_row(self):
         if len(self.points_data) > 0:
@@ -746,6 +1143,10 @@ class AutoClickerProApp:
         overlay.attributes("-fullscreen", True)
         overlay.attributes("-alpha", 0.4)
         overlay.config(cursor="crosshair")
+
+        lbl_text = f"Point {index+1}\n(Esc = Cancel)" if self.current_lang == "EN" else f"موس را روی نقطه {index+1} ببر و کلیک کن\n(انصراف = Esc)"
+        lbl = tb.Label(overlay, text=lbl_text, font=(self.font_family, 22, "bold"), bootstyle=INVERSE)
+        lbl.pack(expand=True)
 
         def record(e):
             self.points_data[index]["x_var"].set(str(e.x_root))
@@ -783,21 +1184,6 @@ class AutoClickerProApp:
 
         self.sched_running = False
         self.root.after(0, lambda: self.sched_start_btn.config(state=NORMAL))
-
-    def build_help_tab(self):
-        help_text = """🎉 به Auto Clicker Pro خوش آمدید!
-
-⚡ امکانات جدید این نسخه:
-• پنجره دائماً شناور (Always On Top) جهت مشاهده وضعیت بدون Alt+Tab
-• تغییر زنده تم نئونی بین رنگ‌های سبز نئونی، آبی سایبرپانک و بنفش گیمینگ
-• چیدمان ۲ ستونه مدرن با فونت بومی وزیرمتن (Vazirmatn)
-• موتور کلیک مستقیم لایه پایین ویندوز (Win32 SendInput) با سرعت فوق‌العاده بالا
-• امکان تعیین زمان‌بندی توقف خودکار (مثلاً توقف کلیک بعد از ۱۰ ثانیه)
-• امکان شروع کلیک پیوسته رأس ساعت مشخص (ساعت:دقیقه:ثانیه)
-• کلید میانبر سفارشی و سراسری در کل ویندوز (F1 تا F12، Insert و ...)
-• سیستم بازخورد صوتی (Audio Feedback) و مینی‌مایز به سینی ویندوز (System Tray)
-        """
-        tb.Label(self.help_tab, text=help_text, justify=RIGHT, font=(self.font_family, 10), wraplength=520).pack(padx=15, pady=15, anchor="ne")
 
 
 if __name__ == "__main__":
