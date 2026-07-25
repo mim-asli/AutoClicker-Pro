@@ -1,16 +1,16 @@
-# setup.py
-
 import sys
 import os
 import glob
 from cx_Freeze import setup, Executable
 
+# ۱. جمع‌آوری فایل‌های فونت ttf و آیکون
 include_files = glob.glob("Vazirmatn-*.ttf") + glob.glob("*.ttf")
 if os.path.exists("icon.ico"):
     include_files.append("icon.ico")
 
 include_files = list(set(include_files))
 
+# ۲. ثبت فونت‌ها در سیستم‌عامل ویندوز موقع نصب
 font_table = [
     ("Vazirmatn-Regular.ttf", "Vazirmatn (TrueType)"),
     ("Vazirmatn-Bold.ttf", "Vazirmatn Bold (TrueType)"),
@@ -18,6 +18,7 @@ font_table = [
     ("Vazirmatn-SemiBold.ttf", "Vazirmatn SemiBold (TrueType)")
 ]
 
+# ۳. جدول شورتکات دسکتاپ
 shortcut_table = [
     (
         "DesktopShortcut",
@@ -35,6 +36,7 @@ shortcut_table = [
     )
 ]
 
+# ۴. تنظیمات خروجی MSI
 bdist_msi_options = {
     "add_to_path": False,
     "initial_target_dir": r"[ProgramFilesFolder]\AutoClickerPro",
@@ -65,7 +67,7 @@ if sys.platform == "win32":
 
 setup(
     name="AutoClickerPro",
-    version="1.1.0",
+    version="1.2.0",  # 👈 ارتقای نسخه به 1.2.0
     description="Auto Clicker Pro Application",
     options={
         "build_exe": build_exe_options,
@@ -73,7 +75,7 @@ setup(
     },
     executables=[
         Executable(
-            "main.py",  # 👈 نقطه ورود جدید به ساختار ماژولار
+            "main.py",
             base=base,
             target_name="AutoClickerPro.exe",
             icon="icon.ico" if os.path.exists("icon.ico") else None
