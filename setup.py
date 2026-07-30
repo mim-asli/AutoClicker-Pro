@@ -67,7 +67,7 @@ if sys.platform == "win32":
 
 setup(
     name="AutoClickerPro",
-    version="1.2.0",  # 👈 ارتقای نسخه به 1.2.0
+    version="1.3.0",  # 👈 ارتقا به نسخه 1.3.0
     description="Auto Clicker Pro Application",
     options={
         "build_exe": build_exe_options,
