@@ -14,9 +14,10 @@ from tkinter import messagebox
 from utils.font_loader import register_vazirmatn_font
 from utils.translations import TRANSLATIONS, THEME_ACCENTS_FA, THEME_ACCENTS_EN
 from core.click_engine import win32_fast_click, high_precision_sleep
-from core.hotkey_manager import EventHotkeyManager, HOTKEY_MAP
+from core.hotkey_manager import EventHotkeyManager
 from core.sound_manager import play_sound_feedback
 from core.validator import validate_interval, validate_duration, validate_coordinate
+from core.state_manager import StateManager, AppState
 from ui.main_window import build_main_window_layout
 
 register_vazirmatn_font()
@@ -34,6 +35,9 @@ class AutoClickerProApp:
         self.root.title("Auto Clicker Pro")
         self.root.geometry("1060x840")
         self.root.minsize(960, 680)
+
+        # 👈 حل نقد ۵: اضافه کردن State Manager مرکزی
+        self.state_mgr = StateManager()
 
         self.current_lang = "FA"
         self.bg_dark = "#0B0F19"
@@ -62,9 +66,9 @@ class AutoClickerProApp:
         for _ in range(8):
             self.add_point_row()
 
-        # شنود رویدادمحور کلید میانبر
+        # 👈 حل نقد ۲: راه اندازی RegisterHotKey رویدادمحور واقعی
         self.hotkey_mgr = EventHotkeyManager(callback=self.toggle_auto_clicker)
-        self.hotkey_mgr.start_listening(get_hotkey_func=lambda: self.auto_hotkey_var.get())
+        self.hotkey_mgr.start("F6")
 
         self.update_status_bar_loop()
 
@@ -129,6 +133,7 @@ class AutoClickerProApp:
         self.root.focus_force()
 
     def quit_app(self, icon=None, item=None):
+        self.hotkey_mgr.stop()
         if hasattr(self, 'tray_icon') and self.tray_icon:
             self.tray_icon.stop()
         self.root.after(0, self.root.destroy)
@@ -287,6 +292,7 @@ class AutoClickerProApp:
 
     def _on_hotkey_changed(self, event=None):
         key = self.auto_hotkey_var.get()
+        self.hotkey_mgr.update_key(key)
         if self.auto_running:
             self.btn_auto_toggle.config(text=self.t("btn_stop").format(key=key))
         else:
@@ -300,16 +306,21 @@ class AutoClickerProApp:
             self.start_auto_clicker()
 
     def start_auto_clicker(self):
-        if self.auto_running: return
+        # 👈 حل نقد ۵: بررسی عدم تداخل با بخش زمان‌بندی توسط StateManager
+        if not self.state_mgr.is_idle():
+            messagebox.showwarning("Warning", "Another process is already running!")
+            return
 
-        # 👈 اعتبارسنجی ورودی‌ها با validator.py
+        # 👈 حل نقد ۴: ذخیره و استفاده مستقیم از خروجی‌های اعتبارسنجی
         self.auto_interval_sec = validate_interval(self.auto_interval_var.get()) / 1000.0
-        if self.auto_pos_mode.get() == "custom":
-            validate_coordinate(self.auto_x_var.get())
-            validate_coordinate(self.auto_y_var.get())
+        self.validated_x = validate_coordinate(self.auto_x_var.get())
+        self.validated_y = validate_coordinate(self.auto_y_var.get())
+        self.validated_duration = validate_duration(self.auto_duration_val.get())
 
         key = self.auto_hotkey_var.get()
         self.auto_running = True
+        self.state_mgr.set_state(AppState.AUTO_CLICKING)
+
         self.btn_auto_toggle.config(text=self.t("btn_stop").format(key=key), bootstyle=DANGER)
         self.lbl_auto_status.config(text=self.t("status_running"), foreground=self.current_accent)
 
@@ -319,6 +330,8 @@ class AutoClickerProApp:
     def stop_auto_clicker(self):
         key = self.auto_hotkey_var.get()
         self.auto_running = False
+        self.state_mgr.set_state(AppState.IDLE)
+
         self.btn_auto_toggle.config(text=self.t("btn_start").format(key=key), bootstyle=SUCCESS)
         self.lbl_auto_status.config(text=self.t("status_stopped"), foreground="#FF5555")
 
@@ -346,6 +359,7 @@ class AutoClickerProApp:
                 time.sleep(0.2)
 
         if not self.auto_running:
+            self.state_mgr.set_state(AppState.IDLE)
             return
 
         self.root.after(0, lambda: self.lbl_auto_status.config(text=self.t("status_running"), foreground=self.current_accent))
@@ -353,7 +367,7 @@ class AutoClickerProApp:
         click_type = self.auto_type_var.get()
 
         click_start_time = time.time()
-        max_duration = validate_duration(self.auto_duration_val.get())
+        max_duration = self.validated_duration
         loop_counter = 0
 
         while self.auto_running:
@@ -364,8 +378,7 @@ class AutoClickerProApp:
 
             pos_x, pos_y = None, None
             if self.auto_pos_mode.get() == "custom":
-                pos_x = validate_coordinate(self.auto_x_var.get())
-                pos_y = validate_coordinate(self.auto_y_var.get())
+                pos_x, pos_y = self.validated_x, self.validated_y
 
             win32_fast_click(button=btn, click_type=click_type, x=pos_x, y=pos_y)
             self.auto_click_count += 1
@@ -457,13 +470,21 @@ class AutoClickerProApp:
         overlay.bind("<Escape>", lambda e: overlay.destroy())
 
     def start_sched_timer(self):
+        if not self.state_mgr.is_idle():
+            messagebox.showwarning("Warning", "Another clicker process is running!")
+            return
+
         self.sched_running = True
+        self.state_mgr.set_state(AppState.SCHEDULER_WAITING)
+
         self.sched_start_btn.config(state=DISABLED)
         self.sched_stop_btn.config(state=NORMAL)
         threading.Thread(target=self._sched_wait_and_click, daemon=True).start()
 
     def stop_sched_timer(self):
         self.sched_running = False
+        self.state_mgr.set_state(AppState.IDLE)
+
         self.sched_start_btn.config(state=NORMAL)
         self.sched_stop_btn.config(state=DISABLED)
 
@@ -475,6 +496,7 @@ class AutoClickerProApp:
 
         while self.sched_running:
             if datetime.datetime.now() >= target:
+                self.state_mgr.set_state(AppState.SCHEDULER_CLICKING)
                 for p in self.points_data:
                     if not self.sched_running: break
                     x_val = validate_coordinate(p["x_var"].get())
@@ -485,6 +507,7 @@ class AutoClickerProApp:
             time.sleep(0.1)
 
         self.sched_running = False
+        self.state_mgr.set_state(AppState.IDLE)
         self.root.after(0, lambda: self.sched_start_btn.config(state=NORMAL))
 
 

@@ -1,6 +1,7 @@
 # core/click_engine.py
 
 import time
+import atexit
 import ctypes
 from ctypes import wintypes
 
@@ -33,13 +34,14 @@ MOUSEEVENTF_RIGHTUP    = 0x0010
 MOUSEEVENTF_MIDDLEDOWN = 0x0020
 MOUSEEVENTF_MIDDLEUP   = 0x0040
 
+# 👈 اصلاح نقد ۳: ثبت پاکسازی timeEndPeriod با atexit موقع بستن برنامه
 try:
     ctypes.windll.winmm.timeBeginPeriod(1)
+    atexit.register(lambda: ctypes.windll.winmm.timeEndPeriod(1))
 except Exception:
     pass
 
 def win32_fast_click(button="left", click_type="Single", x=None, y=None):
-    """ارسال کلیک مستقیم لایه پایین ویندوز با SendInput"""
     if x is not None and y is not None:
         ctypes.windll.user32.SetCursorPos(int(x), int(y))
 
@@ -63,7 +65,7 @@ def win32_fast_click(button="left", click_type="Single", x=None, y=None):
         ctypes.windll.user32.SendInput(1, ctypes.byref(inp_up), ctypes.sizeof(INPUT))
 
 def high_precision_sleep(seconds):
-    """تایمر مایکروثانیه‌ای دقیق جهت خواب بدون قفل کردن CPU"""
+    """تایمر ترکیبی دقیق برای جلوگیری از قفل شدن CPU در بازه‌های بزرگ"""
     if seconds <= 0:
         return
     start = time.perf_counter()
