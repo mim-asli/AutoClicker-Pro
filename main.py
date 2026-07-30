@@ -159,6 +159,7 @@ class AutoClickerProApp:
         self.notebook.tab(0, text=self.t("tab_auto"))
         self.notebook.tab(1, text=self.t("tab_sched"))
         self.notebook.tab(2, text=self.t("tab_help"))
+        self.lbl_interval_hint.config(text=self.t("interval_hint"))
 
         for i, (t_key, d_key) in enumerate([
             ("f1_t", "f1_d"), ("f2_t", "f2_d"), ("f3_t", "f3_d"),

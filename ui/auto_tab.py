@@ -45,7 +45,9 @@ def create_auto_tab(app, parent):
     app.lbl_interval.pack(side=LEFT, padx=(0, 5))
     app.auto_interval_var = tb.StringVar(value="100")
     tb.Entry(r2, textvariable=app.auto_interval_var, width=7, justify="center", font=(app.font_family, 10, "bold")).pack(side=LEFT)
-    tb.Label(r2, text=" (0.1ms)", font=(app.font_family, 8), foreground=app.text_muted).pack(side=LEFT, padx=5)
+    
+    app.lbl_interval_hint = tb.Label(r2, text=app.t("interval_hint"), font=(app.font_family, 8), foreground=app.text_muted)
+    app.lbl_interval_hint.pack(side=LEFT, padx=5)
 
     app.auto_jitter_var = tb.BooleanVar(value=False)
     app.chk_jitter = tb.Checkbutton(app.frame_config, text=app.t("jitter"), variable=app.auto_jitter_var, bootstyle="success-square-toggle")
