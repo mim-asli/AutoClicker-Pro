@@ -110,7 +110,11 @@ class AutoClickerProApp:
 
     def load_app_icon(self):
         self.icon_image_obj = None
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = (
+            os.path.dirname(sys.executable)
+            if getattr(sys, "frozen", False)
+            else os.path.dirname(os.path.abspath(__file__))
+        )
         for icon_name in ["icon.ico", "icon.png"]:
             icon_path = os.path.join(base_dir, icon_name)
             if os.path.exists(icon_path):
