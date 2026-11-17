@@ -1,8 +1,10 @@
-# پوشه‌های موقت ساخت
+__pycache__/
+*.py[cod]
 build/
 dist/
-*.egg-info/
-__pycache__/
 *.msi
 *.exe
+*.egg-info/
+.vscode/
+venv/
 .venv/
