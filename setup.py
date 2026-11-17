@@ -40,11 +40,18 @@ shortcut_table = [
 bdist_msi_options = {
     "add_to_path": False,
     "initial_target_dir": r"[ProgramFilesFolder]\AutoClickerPro",
+    "summary_data": {
+        "author": "mim",
+        "comments": "Auto Clicker Pro Windows Installer",
+    },
     "data": {
         "Shortcut": shortcut_table,
         "Font": font_table,
     },
 }
+
+if os.path.exists("icon.ico"):
+    bdist_msi_options["install_icon"] = "icon.ico"
 
 build_exe_options = {
     "packages": [
@@ -67,6 +74,8 @@ if sys.platform == "win32":
 setup(
     name="AutoClickerPro",
     version="1.3.1",
+    author="mim",
+    url="https://github.com/mim-asli/AutoClicker-Pro",
     description="Auto Clicker Pro Application",
     options={
         "build_exe": build_exe_options,
