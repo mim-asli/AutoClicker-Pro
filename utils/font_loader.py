@@ -1,32 +1,36 @@
 # utils/font_loader.py
 
 import os
+import sys
+import glob
 import ctypes
 
-WM_FONTCHANGE = 0x001D
-HWND_BROADCAST = 0xFFFF
+FR_PRIVATE = 0x10
+
+
+def _get_font_dirs():
+    dirs = []
+    if getattr(sys, "frozen", False):
+        dirs.append(os.path.dirname(sys.executable))
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if base_dir not in dirs:
+        dirs.append(base_dir)
+    return dirs
+
 
 def register_vazirmatn_font():
-    """ثبت بومی و جلسه‌ای فونت‌های وزیرمتن در سیستم‌عامل ویندوز"""
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    ttf_files = [
-        "Vazirmatn-Regular.ttf",
-        "Vazirmatn-Bold.ttf",
-        "Vazirmatn-Medium.ttf",
-        "Vazirmatn-SemiBold.ttf"
-    ]
-    loaded = 0
-    for file in ttf_files:
-        path = os.path.join(base_dir, file)
-        if os.path.exists(path):
-            res = ctypes.windll.gdi32.AddFontResourceW(path)
-            if res > 0:
-                loaded += 1
+    """ثبت خصوصی و سریع فونت‌های وزیرمتن در ویندوز"""
+    if sys.platform != "win32":
+        return
 
-    if loaded > 0:
-        try:
-            ctypes.windll.user32.SendMessageTimeoutW(
-                HWND_BROADCAST, WM_FONTCHANGE, 0, 0, 0x0002, 1000, None
-            )
-        except Exception:
-            pass
+    loaded = set()
+    for folder in _get_font_dirs():
+        for path in glob.glob(os.path.join(folder, "Vazirmatn-*.ttf")):
+            if path in loaded:
+                continue
+            try:
+                res = ctypes.windll.gdi32.AddFontResourceExW(path, FR_PRIVATE, 0)
+                if res > 0:
+                    loaded.add(path)
+            except Exception:
+                pass

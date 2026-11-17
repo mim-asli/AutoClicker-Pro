@@ -15,7 +15,7 @@ font_table = [
     ("Vazirmatn-Regular.ttf", "Vazirmatn (TrueType)"),
     ("Vazirmatn-Bold.ttf", "Vazirmatn Bold (TrueType)"),
     ("Vazirmatn-Medium.ttf", "Vazirmatn Medium (TrueType)"),
-    ("Vazirmatn-SemiBold.ttf", "Vazirmatn SemiBold (TrueType)")
+    ("Vazirmatn-SemiBold.ttf", "Vazirmatn SemiBold (TrueType)"),
 ]
 
 # ۳. جدول شورتکات دسکتاپ
@@ -32,7 +32,7 @@ shortcut_table = [
         None,
         None,
         None,
-        'TARGETDIR'
+        "TARGETDIR",
     )
 ]
 
@@ -42,23 +42,22 @@ bdist_msi_options = {
     "initial_target_dir": r"[ProgramFilesFolder]\AutoClickerPro",
     "data": {
         "Shortcut": shortcut_table,
-        "Font": font_table
-    }
+        "Font": font_table,
+    },
 }
 
 build_exe_options = {
     "packages": [
         "ttkbootstrap",
-        "pyautogui",
         "tkinter",
         "PIL",
         "threading",
         "datetime",
         "time",
-        "pystray"
+        "pystray",
     ],
     "include_files": include_files,
-    "include_msvcr": True
+    "include_msvcr": True,
 }
 
 base = None
@@ -67,18 +66,18 @@ if sys.platform == "win32":
 
 setup(
     name="AutoClickerPro",
-    version="1.3.0",  # 👈 ارتقا به نسخه 1.3.0
+    version="1.3.1",
     description="Auto Clicker Pro Application",
     options={
         "build_exe": build_exe_options,
-        "bdist_msi": bdist_msi_options
+        "bdist_msi": bdist_msi_options,
     },
     executables=[
         Executable(
             "main.py",
             base=base,
             target_name="AutoClickerPro.exe",
-            icon="icon.ico" if os.path.exists("icon.ico") else None
+            icon="icon.ico" if os.path.exists("icon.ico") else None,
         )
-    ]
+    ],
 )

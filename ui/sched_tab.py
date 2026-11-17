@@ -1,15 +1,12 @@
 # ui/sched_tab.py
 
-import time
 import datetime
-import threading
-from tkinter import messagebox
+from tkinter import BOTH, DISABLED, LEFT, RIGHT, VERTICAL, X, Y
 import ttkbootstrap as tb
-from ttkbootstrap.constants import *
-from core.click_engine import win32_fast_click
+
 
 def create_sched_tab(app, parent):
-    app.frame_sched_cfg = tb.Labelframe(parent, text=app.t("sched_cfg_title"), padding=15, bootstyle=INFO)
+    app.frame_sched_cfg = tb.Labelframe(parent, text=app.t("sched_cfg_title"), padding=15, bootstyle="info")
     app.frame_sched_cfg.pack(fill=X, pady=(0, 15))
 
     time_row = tb.Frame(app.frame_sched_cfg)
@@ -27,6 +24,9 @@ def create_sched_tab(app, parent):
     tb.Entry(time_row, textvariable=app.min_var, width=4, justify="center", font=(app.font_family, 10, "bold")).pack(side=LEFT)
     tb.Label(time_row, text=":", font=(app.font_family, 11, "bold")).pack(side=LEFT, padx=2)
     tb.Entry(time_row, textvariable=app.sec_var, width=4, justify="center", font=(app.font_family, 10, "bold")).pack(side=LEFT)
+    tb.Label(time_row, text=".", font=(app.font_family, 11, "bold")).pack(side=LEFT, padx=2)
+    app.ms_var = tb.StringVar(value="000")
+    tb.Entry(time_row, textvariable=app.ms_var, width=5, justify="center", font=(app.font_family, 10, "bold")).pack(side=LEFT)
 
     delay_row = tb.Frame(app.frame_sched_cfg)
     delay_row.pack(fill=X, pady=10)
@@ -35,14 +35,14 @@ def create_sched_tab(app, parent):
     app.delay_var = tb.StringVar(value="100")
     tb.Entry(delay_row, textvariable=app.delay_var, width=8, justify="center", font=(app.font_family, 10)).pack(side=LEFT)
 
-    app.frame_sched_pts = tb.Labelframe(parent, text=app.t("sched_pts_title"), padding=10, bootstyle=PRIMARY)
+    app.frame_sched_pts = tb.Labelframe(parent, text=app.t("sched_pts_title"), padding=10, bootstyle="primary")
     app.frame_sched_pts.pack(fill=BOTH, expand=True)
 
     ctrl_frame = tb.Frame(app.frame_sched_pts)
     ctrl_frame.pack(fill=X, pady=(0, 10))
-    app.btn_sched_add = tb.Button(ctrl_frame, text=app.t("sched_add_btn"), bootstyle=SUCCESS, command=app.add_point_row)
+    app.btn_sched_add = tb.Button(ctrl_frame, text=app.t("sched_add_btn"), bootstyle="success", command=app.add_point_row)
     app.btn_sched_add.pack(side=LEFT, padx=5)
-    app.btn_sched_rem = tb.Button(ctrl_frame, text=app.t("sched_rem_btn"), bootstyle=DANGER, command=app.remove_point_row)
+    app.btn_sched_rem = tb.Button(ctrl_frame, text=app.t("sched_rem_btn"), bootstyle="danger", command=app.remove_point_row)
     app.btn_sched_rem.pack(side=LEFT, padx=5)
 
     canvas_frame = tb.Frame(app.frame_sched_pts)
@@ -55,17 +55,31 @@ def create_sched_tab(app, parent):
     app.scrollable_frame.bind("<Configure>", lambda e: app.canvas.configure(scrollregion=app.canvas.bbox("all")))
     app.canvas_window = app.canvas.create_window((0, 0), window=app.scrollable_frame, anchor="nw")
     app.canvas.bind("<Configure>", lambda e: app.canvas.itemconfig(app.canvas_window, width=e.width))
-    app.canvas.bind_all("<MouseWheel>", lambda e: app.canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+
+    def _on_mousewheel(event):
+        if app.canvas.yview() == (0.0, 1.0):
+            return
+        w = event.widget
+        while w is not None:
+            if w == app.canvas:
+                step = int(-1 * (event.delta / 120))
+                if step == 0 and event.delta != 0:
+                    step = -1 if event.delta > 0 else 1
+                app.canvas.yview_scroll(step, "units")
+                return
+            w = getattr(w, "master", None)
+
+    app.canvas.bind_all("<MouseWheel>", _on_mousewheel)
     app.canvas.configure(yscrollcommand=app.scrollbar.set)
     app.canvas.pack(side=LEFT, fill=BOTH, expand=True)
     app.scrollbar.pack(side=RIGHT, fill=Y)
 
-    app.sched_status_label = tb.Label(parent, text=app.t("sched_status_ready"), font=(app.font_family, 12, "bold"), bootstyle=PRIMARY)
+    app.sched_status_label = tb.Label(parent, text=app.t("sched_status_ready"), font=(app.font_family, 12, "bold"), bootstyle="primary")
     app.sched_status_label.pack(pady=10)
 
     btn_frame = tb.Frame(parent)
     btn_frame.pack(fill=X, pady=5)
-    app.sched_start_btn = tb.Button(btn_frame, text=app.t("sched_start_btn"), bootstyle=(SUCCESS, OUTLINE), command=app.start_sched_timer)
+    app.sched_start_btn = tb.Button(btn_frame, text=app.t("sched_start_btn"), bootstyle=("success", "outline"), command=app.start_sched_timer)
     app.sched_start_btn.pack(side=LEFT, expand=True, padx=5, fill=X)
-    app.sched_stop_btn = tb.Button(btn_frame, text=app.t("sched_stop_btn"), bootstyle=(DANGER, OUTLINE), command=app.stop_sched_timer, state=DISABLED)
+    app.sched_stop_btn = tb.Button(btn_frame, text=app.t("sched_stop_btn"), bootstyle=("danger", "outline"), command=app.stop_sched_timer, state=DISABLED)
     app.sched_stop_btn.pack(side=LEFT, expand=True, padx=5, fill=X)

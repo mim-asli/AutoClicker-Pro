@@ -1,9 +1,10 @@
 # ui/help_tab.py
 
+from tkinter import BOTH, LEFT, RIGHT, X
 import ttkbootstrap as tb
-from ttkbootstrap.constants import *
 from utils.translations import THEME_ACCENTS_FA, THEME_ACCENTS_EN
 from core.hotkey_manager import HOTKEY_MAP
+
 
 def create_general_settings_tab(app, parent):
     grid_frame = tb.Frame(parent)
@@ -16,7 +17,7 @@ def create_general_settings_tab(app, parent):
     col2.pack(side=RIGHT, fill=BOTH, expand=True, padx=(6, 0))
 
     # کادر ۱: ظاهر، زبان و شناورسازی
-    app.frame_visuals = tb.Labelframe(col1, text=app.t("frame_visuals"), padding=12, bootstyle=INFO)
+    app.frame_visuals = tb.Labelframe(col1, text=app.t("frame_visuals"), padding=12, bootstyle="info")
     app.frame_visuals.pack(fill=X, pady=(0, 10))
 
     rv_lang = tb.Frame(app.frame_visuals)
@@ -53,7 +54,7 @@ def create_general_settings_tab(app, parent):
     app.chk_topmost.pack(anchor="w")
 
     # کادر ۲: کلید میانبر
-    app.frame_hotkey = tb.Labelframe(col1, text=app.t("hotkey_title"), padding=12, bootstyle=INFO)
+    app.frame_hotkey = tb.Labelframe(col1, text=app.t("hotkey_title"), padding=12, bootstyle="info")
     app.frame_hotkey.pack(fill=X, pady=(0, 10))
 
     rhk = tb.Frame(app.frame_hotkey)
@@ -66,7 +67,7 @@ def create_general_settings_tab(app, parent):
     app.combo_hotkey.bind("<<ComboboxSelected>>", app._on_hotkey_changed)
 
     # کادر ۳: راهنما
-    card_q = tb.Labelframe(col2, text=" 🚀 Guide & Features ", padding=12, bootstyle=PRIMARY)
+    card_q = tb.Labelframe(col2, text=" 🚀 Guide & Features ", padding=12, bootstyle="primary")
     card_q.pack(fill=BOTH, expand=True)
 
     app.lbl_help_q_title = tb.Label(card_q, text=app.t("help_quick_title"), font=(app.font_family, 11, "bold"))

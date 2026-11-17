@@ -1,11 +1,12 @@
 # ui/main_window.py
 
+from tkinter import BOTH, BOTTOM, LEFT, RIGHT, X, Y
 import ttkbootstrap as tb
-from ttkbootstrap.constants import *
 
 from ui.auto_tab import create_auto_tab
 from ui.sched_tab import create_sched_tab
 from ui.help_tab import create_general_settings_tab
+
 
 def build_main_window_layout(app):
     main_container = tb.Frame(app.root)
@@ -39,7 +40,7 @@ def build_main_window_layout(app):
     right_panel = tb.Frame(main_container)
     right_panel.pack(side=RIGHT, fill=BOTH, expand=True)
 
-    app.notebook = tb.Notebook(right_panel, bootstyle=PRIMARY)
+    app.notebook = tb.Notebook(right_panel, bootstyle="primary")
     app.notebook.pack(fill=BOTH, expand=True)
 
     app.auto_tab = tb.Frame(app.notebook, padding=12)

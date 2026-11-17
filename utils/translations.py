@@ -44,7 +44,7 @@ TRANSLATIONS = {
         "run_time": "⏱️ زمان اجرا: ",
         # تب زمان‌بندی نقاط
         "sched_cfg_title": " ⚙️ تنظیمات زمان و سرعت ",
-        "sched_time_lbl": "زمان شروع (ساعت:دقیقه:ثانیه):",
+        "sched_time_lbl": "زمان شروع (ساعت:دقیقه:ثانیه.میلی‌ثانیه):",
         "sched_delay_lbl": "تاخیر بین کلیک‌ها (میلی‌ثانیه):",
         "sched_pts_title": " 🎯 مختصات نقاط کلیک ",
         "sched_add_btn": "➕ افزودن نقطه",
@@ -65,7 +65,7 @@ TRANSLATIONS = {
         "f5_t": "⚡ موتور کلیک Win32",
         "f5_d": "دقت و سرعت ۱ میلی‌ثانیه‌ای ویندوز",
         "f6_t": "⏱️ توقف خودکار زمان‌بندی",
-        "f6_d": "محدود کردن کلیک به ۱۰ ثانیه",
+        "f6_d": "محدود کردن کلیک به زمان دلخواه",
         # راهنما (اصلاح شده)
         "help_quick_title": "🚀 راهنمای سریع استفاده:",
         "help_quick_1": "۱. تنظیمات کلیک (دکمه موس، سرعت و زمان) را انجام دهید.",
@@ -120,7 +120,7 @@ TRANSLATIONS = {
         "run_time": "⏱️ Runtime: ",
         # Multi-point Scheduler Tab
         "sched_cfg_title": " ⚙️ Timer & Speed Settings ",
-        "sched_time_lbl": "Start Time (HH:MM:SS):",
+        "sched_time_lbl": "Start Time (HH:MM:SS.ms):",
         "sched_delay_lbl": "Delay Between Clicks (ms):",
         "sched_pts_title": " 🎯 Multi-Point Coordinates ",
         "sched_add_btn": "➕ Add Point",

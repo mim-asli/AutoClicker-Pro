@@ -1,5 +1,6 @@
 # core/validator.py
 
+
 def validate_interval(value_str, default=100.0, min_val=0.1, max_val=3600000.0):
     """اعتبارسنجی تاخیر زمان کلیک (بین 0.1 میلی‌ثانیه تا 1 ساعت)"""
     try:
@@ -11,6 +12,7 @@ def validate_interval(value_str, default=100.0, min_val=0.1, max_val=3600000.0):
         return val
     except (ValueError, TypeError):
         return default
+
 
 def validate_duration(value_str, default=10.0, min_val=1.0, max_val=86400.0):
     """اعتبارسنجی مدت زمان توقف خودکار (بین 1 ثانیه تا 24 ساعت)"""
@@ -24,10 +26,11 @@ def validate_duration(value_str, default=10.0, min_val=1.0, max_val=86400.0):
     except (ValueError, TypeError):
         return default
 
-def validate_coordinate(value_str, default=0):
-    """اعتبارسنجی مختصات X و Y موس"""
+
+def validate_coordinate(value_str, default=0, min_val=-32768, max_val=32768):
+    """اعتبارسنجی مختصات X و Y موس (با پشتیبانی از مختصات منفی چند مانیتور)"""
     try:
-        val = int(value_str)
-        return max(0, val)
+        val = int(float(value_str))
+        return max(min_val, min(max_val, val))
     except (ValueError, TypeError):
         return default
